@@ -70,6 +70,8 @@ So how does it look? Well, here are the results for the 'ennis.hdr' environment 
 
 It's a marked improvement over the naïve projection, and, depending on the sample distribution, can be imperceptibly different from the least squares encoding. And it all works on the fly, on the GPU, requiring only a per-lobe mean and weight to be stored.
 
+Note that the original implementation of irradiance for the naïve projection in Probulator cheats a little bit, since it uses a non-cosine BRDF to evaluate the spherical Gaussian lobes. If we're also using the spherical Gaussian to encode radiance for specular lighting, compensating with the BRDF doesn't really work; we want things to be consistent. In these images, I'm using [Stephen Hill's fitted approximation for a cosine lobe](https://mynameismjp.wordpress.com/2016/10/09/sg-series-part-3-diffuse-lighting-from-an-sg-light-source/) to evaluate the irradiance for all encoding methods to be sure that's the _only_ thing we're comparing. 
+
 As I progress on my thesis, I hope to uncover more of the reasoning behind _why_ it works so well, and I'm also hopeful it can find applications for this in other encoding schemes ([Ambient Dice](https://research.activision.com/t5/Publications/Ambient-Dice/ba-p/10284641), perhaps?)
 
 _While testing this, I used [Probulator](https://github.com/kayru/Probulator), a useful open-source tool for testing different lighting encoding strategies. The source code for the implementation of this method within Probulator is below:_
