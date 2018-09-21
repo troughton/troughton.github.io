@@ -75,6 +75,7 @@ In these images, I'm using [Stephen Hill's fitted approximation for a cosine lob
 As I progress on my thesis, I hope to uncover more of the reasoning behind _why_ it works so well, and I'm also hopeful it can find applications for this in other encoding schemes ([Ambient Dice](https://research.activision.com/t5/Publications/Ambient-Dice/ba-p/10284641), perhaps?)
 
 _While testing this, I used [Probulator](https://github.com/kayru/Probulator), a useful open-source tool for testing different lighting encoding strategies. The source code for the implementation of this method within Probulator is below:_
+
 _Note that the original implementation of irradiance for the naïve projection in Probulator cheats a little bit, since it uses a non-cosine BRDF to evaluate the spherical Gaussian lobes. If we're also using the spherical Gaussian to encode radiance for specular lighting, compensating with the BRDF doesn't really work; we want things to be consistent._
 
 {% highlight c++ %}
