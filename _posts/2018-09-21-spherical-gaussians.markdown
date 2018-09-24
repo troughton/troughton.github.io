@@ -52,9 +52,7 @@ struct SphericalGaussianBasis {
 }
 {% endhighlight %}
 
-The basic idea is fairly simple: at each step, we evaluate the sum of the spherical Gaussian lobes in the new sample's direction. Then, we evaluate the difference between the sample's value and the current value. Finally, we adjust each lobe's amplitude towards the sample's amplitude according to its weight. If we want the lobe to be non-negative, we simply clamp it; the next sample to come in will then be evaluated against the set of non-negative lobes.
-
-In earlier versions I tried normalising by the sum of sampleLobeWeights; however, I found this reduced the reconstruction quality and increased the error.
+The basic idea is fairly simple: at each step, we evaluate the sum of the spherical Gaussian lobes in the new sample's direction. Then, we evaluate the difference between the sample's value and the current value. Finally, we adjust each lobe's amplitude towards the sample's amplitude according to its weight. If we want the lobe to be non-negative, we simply clamp it; the next sample to come in will then be evaluated against the set of non-negative lobes. I've called this a 'running average'; perhaps a better description is that is uses gradient descent to solve for the radiance.
 
 So how does it look? Well, here are the results for the 'ennis.hdr' environment map using uniformly randomly shuffled sample directions and twelve lobes ('Running Average' is my new method):
 
