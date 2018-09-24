@@ -26,9 +26,9 @@ struct SphericalGaussianBasis {
         
         var sampleLobeWeights = [Float](repeating: 0.0, count: self.lobes.count)
         for (i, lobe) in self.lobes.enumerated() {
-            let dotProduct = simd.dot(lobe.lobeAxis, sample.direction)
-            let weight = exp(lobe.lambda * (dotProduct - 1.0))
-            currentValue += lobe.mu * weight
+            let dotProduct = dot(lobe.axis, sample.direction)
+            let weight = exp(lobe.sharpness * (dotProduct - 1.0))
+            currentValue += lobe.amplitude * weight
             
             sampleLobeWeights[i] = weight
         }
@@ -42,10 +42,10 @@ struct SphericalGaussianBasis {
             lobeWeights[i] += weight
             
             let weightScale = weight / self.lobeWeights[i]
-            self.lobes[i].mu += deltaValue * weightScale
+            self.lobes[i].amplitude += deltaValue * weightScale
             
             if (self.nonNegativeSolve) {
-                self.lobes[i].mu = max(self.lobes[i].mu, float3(0))
+                self.lobes[i].amplitude = max(self.lobes[i].amplitude, float3(0))
             }
         }
     }
