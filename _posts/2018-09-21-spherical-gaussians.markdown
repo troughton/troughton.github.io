@@ -70,6 +70,8 @@ It's a marked improvement over the naïve projection, and, depending on the samp
 
 In these images, I'm using [Stephen Hill's fitted approximation for a cosine lobe](https://mynameismjp.wordpress.com/2016/10/09/sg-series-part-3-diffuse-lighting-from-an-sg-light-source/) to evaluate the irradiance for all encoding methods. 
 
+_Update: Matt Pettineo has integrated this new method into [The Baking Lab](https://github.com/TheRealMJP/BakingLab). If you want to take a look you can find it under the 'Running Average' and 'Running Average Non-Negative' solve modes._
+
 As I progress on my thesis, I hope to uncover more of the reasoning behind _why_ it works so well, and I'm also hopeful it can find applications for this in other encoding schemes ([Ambient Dice](https://research.activision.com/t5/Publications/Ambient-Dice/ba-p/10284641), perhaps?)
 
 _While testing this, I used [Probulator](https://github.com/kayru/Probulator), a useful open-source tool for testing different lighting encoding strategies. The source code for the implementation of this method within Probulator is below._
