@@ -13,7 +13,7 @@ Instead, games like The Order: 1886 just projected the samples onto the spherica
 
 After a bunch of experimentation, I found a new algorithm for accumulating spherical Gaussian samples that's almost as good as a least-squares solve if the sample directions are randomly distributed, or is slightly better than a naïve projection if the sample directions are correlated (as they would be, say, if you were reading pixels row by row from a lat-long image map.) Conveniently, when we're accumulating samples from path tracing the sample directions are usually stratified or uniformly random. 
 
-One note of caution: some low-discrepancy sequences (e.g. fixed-length ones like the Hammersley sequence) will not work well since successive samples are correlated, even though the sequence is well-distributed over the entire domain. 
+One note of caution: some low-discrepancy sequences (e.g. fixed-length ones like the Hammersley sequence) will not work well if successive samples are correlated, even though the sequence is well-distributed over the entire domain. 
 
 The algorithm is as follows, and supports both non-negative and regular solves:
 
