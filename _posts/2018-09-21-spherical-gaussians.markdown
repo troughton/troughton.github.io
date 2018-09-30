@@ -5,13 +5,15 @@ date:   2018-09-21 15:37:26 +1200
 categories: rendering irradiance-caching spherical-gaussians
 ---
 
+> Note: there is an error in the algorithm described below that results in higher error when the sampling variance is high. An updated version will be posted in the next few days (within the first week of October).
+
 Spherical Gaussians are a useful tool for encoding precomputed radiance within a scene. Matt Pettineo has [an excellent series](https://mynameismjp.wordpress.com/2016/10/09/sg-series-part-1-a-brief-and-incomplete-history-of-baked-lighting-representations/) describing the technical details and history behind them which I'd suggest reading before the rest of this post.
 
 Recently, I've had need to build spherical Gaussian representations of a scene on the fly in the GPU path tracer I'm building for my Master's project. Unlike, say, spherical harmonics, spherical Gaussian lobes don't form a set of orthonormal bases; they need to be computed with a least-squares solve, which generally requires having access to all radiance samples at once (although, as Peter-Pike Sloan points out on Twitter, [that doesn't always have to be the case](https://twitter.com/PeterPikeSloan/status/1044482721223856128)). On the GPU, in a memory-constrained environment, this is highly impractical.
 
 Instead, games like The Order: 1886 just projected the samples onto the spherical Gaussian lobes [as if the lobes form an orthonormal basis](https://mynameismjp.wordpress.com/2016/10/09/sg-series-part-5-approximating-radiance-and-irradiance-with-sgs/), which gave low-quality results that lack contrast. For my research, I wanted to see if I could do better.
 
-After a bunch of experimentation, I found a new algorithm for accumulating spherical Gaussian samples that's almost as good as a least-squares solve if the sample directions are randomly distributed, or is slightly better than a naïve projection if the sample directions are correlated (as they would be, say, if you were reading pixels row by row from a lat-long image map.) Conveniently, when we're accumulating samples from path tracing the sample directions are usually stratified or uniformly random. 
+After a bunch of experimentation, I found a new algorithm for accumulating spherical Gaussian samples that's almost as good as a least-squares solve if the sample directions are randomly distributed, or is slightly better than a naïve projection if the sample directions are correlated (as they would be, say, if you were reading pixels row by row from a lat-long image map.) Conveniently, when we're accumulating samples from path tracing the sample directions are usually stratified or uniformly random.
 
 One note of caution: some low-discrepancy sequences (e.g. fixed-length ones like the Hammersley sequence) will not work well if successive samples are correlated, even though the sequence is well-distributed over the entire domain. 
 
@@ -68,7 +70,7 @@ So how does it look? Well, here are the results for the 'ennis.hdr' environment 
 <tr><td valign="top"><img src="/assets/spherical-gaussians/radianceSGNNRA.png"/><br/>RMS: 3.92593</td><td valign="top"><img src="/assets/spherical-gaussians/irradianceSGNNRA.png"/><br/>RMS: 0.670631</td><td valign="top"><img src="/assets/spherical-gaussians/irradianceErrorSGNNRA.png"/></td><td>Non-Negative Running Average</td></tr>
 </table>
 
-It's a marked improvement over the naïve projection, and, depending on the sample distribution, can be imperceptibly different from the least squares encoding. And it all works on the fly, on the GPU, requiring only a per-lobe mean and weight to be stored.
+It's a marked improvement over the naïve projection, and, depending on the sample distribution, can be imperceptibly different from a standard least squares solve. And it all works on the fly, on the GPU, requiring only a per-lobe mean and weight to be stored.
 
 In these images, I'm using [Stephen Hill's fitted approximation for a cosine lobe](https://mynameismjp.wordpress.com/2016/10/09/sg-series-part-3-diffuse-lighting-from-an-sg-light-source/) to evaluate the irradiance for all encoding methods. 
 
