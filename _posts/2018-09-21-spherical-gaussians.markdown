@@ -5,7 +5,7 @@ date:   2018-09-21 15:37:26 +1200
 categories: rendering irradiance-caching spherical-gaussians
 ---
 
-> Note: there is an error in the algorithm described below that results in higher error when the sampling variance is high. An updated version will be posted in the next few days (within the first week of October).
+> Note: there is an approximation in the algorithm described below that results in higher error when the sampling variance is high. An updated version will be posted in the next few days (within the first week of October).
 
 Spherical Gaussians are a useful tool for encoding precomputed radiance within a scene. Matt Pettineo has [an excellent series](https://mynameismjp.wordpress.com/2016/10/09/sg-series-part-1-a-brief-and-incomplete-history-of-baked-lighting-representations/) describing the technical details and history behind them which I'd suggest reading before the rest of this post.
 
