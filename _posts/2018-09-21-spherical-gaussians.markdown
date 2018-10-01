@@ -41,8 +41,6 @@ struct SphericalGaussianBasis {
             sampleLobeWeights[i] = weight
         }
         
-        let deltaValue = sample.value - currentEstimate
-        
         for i in 0..<self.lobes.count {
             let weight = sampleLobeWeights[i]
             if weight == 0 { continue }
