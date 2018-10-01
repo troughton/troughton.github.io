@@ -11,7 +11,7 @@ Recently, I've had need to build spherical Gaussian representations of a scene o
 
 Instead, games like The Order: 1886 just projected the samples onto the spherical Gaussian lobes [as if the lobes form an orthonormal basis](https://mynameismjp.wordpress.com/2016/10/09/sg-series-part-5-approximating-radiance-and-irradiance-with-sgs/), which gave low-quality results that lack contrast. For my research, I wanted to see if I could do better.
 
-One option, as [Peter-Pike Sloan points out on Twitter](https://twitter.com/PeterPikeSloan/status/1044482721223856128), is to accumulate the raw moments and then multiply by a lobeCount × lobeCount matrix to reconstruct the result. 
+One option, as [Peter-Pike Sloan points out on Twitter](https://twitter.com/PeterPikeSloan/status/1044482721223856128), is to accumulate the raw moments and then multiply by a lobeCount × lobeCount matrix to reconstruct the result.
 
 After a bunch of experimentation, I found a new equivalent algorithm that enables us to compute the lobe amplitudes in place, without needing a large matrix multiply at the end. The results are as good as a standard least-squares solve if the sample directions are randomly distributed, but deteriorates if the sample directions are correlated (as they would be, say, if you were reading pixels row by row from a lat-long image map.) Conveniently, when we're accumulating samples from path tracing the sample directions are usually stratified or uniformly random. 
 
@@ -45,19 +45,20 @@ struct SphericalGaussianBasis {
             let weight = sampleLobeWeights[i]
             if weight == 0 { continue }
             
-            var sphericalIntegralGuess = weight * weight
+            let sphericalIntegralGuess = weight * weight
             
-            // The MC-computed spherical integral will be too inaccurate at first, so fall back to the
-            // precomputed integral for the first iteration.
-            if self.lobeMCSphericalIntegrals[i] == 0.0 {
-                sphericalIntegralGuess = lobes[i].precomputedSphericalIntegral
-            }
+            // Update the MC-computed integral of the lobe over the domain.
             self.lobeMCSphericalIntegrals[i] += (sphericalIntegralGuess - self.lobeMCSphericalIntegrals[i]) * sampleWeightScale
             
-            // The most accurate method requires using the MC-computed spherical integral.
+            // The most accurate method requires using the MC-computed integral, 
+            // since then bias in the estimate will partially cancel out.
             // However, if you don't want to store a weight per-lobe you can instead substitute it with the
-            // integral of the lobe over the domain at a slight increase in error.
-            let sphericalIntegral = self.lobeMCSphericalIntegrals[i] // lobes[i].precomputedSphericalIntegral
+            // precomputed integral at a slight increase in error.
+
+            // Clamp the MC-computed integral to within a reasonable ad-hoc factor of the actual integral to avoid noise.
+            let sphericalIntegral = max(
+                self.lobeMCSphericalIntegrals[i],
+                lobes[i].precomputedSphericalIntegral * 0.75)
             
             let otherLobesContribution = currentEstimate - self.lobes[i].amplitude * weight
             let newValue = (sample.value - otherLobesContribution) * weight / sphericalIntegral
@@ -173,18 +174,16 @@ public:
 
                 float sphericalIntegralGuess = weight * weight;
                 
-                // The MC-computed spherical integral will be too inaccurate at first, so fall back to the
-                // precomputed integral for the first iteration.
-                if (lobeMCSphericalIntegrals[lobeIt] == 0.f) {
-                    sphericalIntegralGuess = lobePrecomputedSphericalIntegrals[lobeIt];
-                }
-                
+                // Update the MC-computed integral of the lobe over the domain.
                 lobeMCSphericalIntegrals[lobeIt] += (sphericalIntegralGuess - lobeMCSphericalIntegrals[lobeIt]) * sampleWeightScale;
 
-                // The most accurate method requires using the MC-computed spherical integral.
+                // The most accurate method requires using the MC-computed integral, 
+                // since then bias in the estimate will partially cancel out.
                 // However, if you don't want to store a weight per-lobe you can instead substitute it with the
-                // (potentially analytically computed) integral of the lobe over the domain at a slight increase in error.
-                float sphericalIntegral = lobeMCSphericalIntegrals[lobeIt];
+                // precomputed integral at a slight increase in error.
+
+                // Clamp the MC-computed integral to within a reasonable ad-hoc factor of the actual integral to avoid noise.
+                float sphericalIntegral = max(lobeMCSphericalIntegrals[lobeIt], lobePrecomputedSphericalIntegrals * 0.75f);
 
                 vec3 otherLobesContribution = currentEstimate - m_lobes[lobeIt].mu * weight;
                 vec3 newValue = (sample.value - otherLobesContribution) * weight / sphericalIntegral;
