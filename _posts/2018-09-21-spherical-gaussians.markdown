@@ -123,13 +123,13 @@ The results are now as good as a standard least-squares solve if the sample dire
 
 This method can also be a little noisier than a standard least squares solve in the context of lightmap path tracing, since the final result is determined by early estimates which may vary from texel to texel; standard denoising techniques and a proper filter kernel for accumulation should help to alleviate this.
 
-[^2]: One note of caution: some low-discrepancy sequences (e.g. fixed-length ones like the Hammersley sequence) will not work well if successive samples are correlated, even though the sequence is well-distributed over the entire domain. 
+[^2]: One note of caution: some low-discrepancy sequences (e.g. fixed-length ones like the Hammersley sequence) will not work well since successive samples are correlated, even though the sequence is well-distributed over the entire domain. One way around this is to uniformly randomly shuffle the samples. 
 
 If you want to see this method running, Matt Pettineo has integrated it into [The Baking Lab](https://github.com/TheRealMJP/BakingLab). You can find it under the 'Running Average' and 'Running Average Non-Negative' solve modes.
 
 While testing this, I used [Probulator](https://github.com/kayru/Probulator), a useful open-source tool for testing different lighting encoding strategies. The source code for the implementation of this method within Probulator is below.
 
-Note that the original implementation of irradiance for the naïve projection in Probulator cheats a little bit since it uses a non-cosine BRDF to evaluate the spherical Gaussian lobes. If we're also using the spherical Gaussian to encode radiance for specular lighting, compensating with the BRDF doesn't really work; we want things to be consistent.
+Note that the original implementation of irradiance for the naïve projection in Probulator cheats a little since it uses a non-cosine BRDF to evaluate the spherical Gaussian lobes. If we're also using the spherical Gaussian to encode radiance for specular lighting, compensating with the BRDF doesn't really work; we want things to be consistent.
 
 {% highlight c++ %}
 
