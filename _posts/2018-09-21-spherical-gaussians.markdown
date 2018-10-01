@@ -97,7 +97,7 @@ struct SphericalGaussian {
     var sharpness : Float
     
     var sphericalIntegral : Float {
-        return (1.0 - exp(-4.0 * self.sharpness)) / (4 * self.sharpness)
+        return (1.0 - exp(-4.0 * self.sharpness)) / (4.0 * self.sharpness)
     }
     
     var hemisphericalIntegral : Float {
