@@ -58,7 +58,8 @@ struct SphericalGaussianBasis {
             // Clamp the MC-computed integral to within a reasonable ad-hoc factor of the actual integral to avoid noise.
             let sphericalIntegral = max(
                 self.lobeMCSphericalIntegrals[i],
-                lobes[i].precomputedSphericalIntegral * 0.75)
+                lobes[i].precomputedSphericalIntegral * 0.75
+            )
             
             let otherLobesContribution = currentEstimate - self.lobes[i].amplitude * weight
             let newValue = (sample.value - otherLobesContribution) * weight / sphericalIntegral
