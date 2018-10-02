@@ -99,9 +99,10 @@ Alternatively, you could seed the estimator for $$ b_i $$ with a more accurate i
 
 In this equation, the integral in the denominator can be calculated using Monte Carlo integration in the same way that $$ b_i $$ is. In fact, it turns out that computing both of them in lockstep improves the accuracy of the algorithm since any sampling bias in the numerator will be partially balanced out by the bias in the denominator. However, it's also true that the integral may be wildly inaccurate at small sample counts; therefore, to balance that out, I recommend clamping the estimator for the integral to within a reasonable range of the true integral. Alternatively, it's possible to always use the precomputed true integral on the denominator and only estimate the $$ b $$ vector, although this results in slightly increased error.
 
----
+---------------
+<br>
 
-My [original algorithm](/rendering/irradiance-caching/spherical-gaussians/2018/09/21/spherical-gaussians-old.html) was derived by experimentation; I thought it would be worth going through why it worked and the approximations it made. Note that none of this is necessary to understand the corrected equation – it's purely for curiosity and interest!
+My [original algorithm](/rendering/irradiance-caching/spherical-gaussians/2018/09/21/spherical-gaussians-old.html) was created by experimentation. I thought it would be worth going through why it worked and the approximations it made. Note that none of this is necessary to understand the corrected equation – it's purely for curiosity and interest!
 
 Effectively, at each step, it solved the following equation:
 
