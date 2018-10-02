@@ -130,3 +130,15 @@ This method can also be a little noisier than a standard least squares solve in 
 While testing this, I used [Probulator](https://github.com/kayru/Probulator), a useful open-source tool for testing different lighting encoding strategies. This method has also been merged into Probulator, and the source can be viewed [here](https://github.com/kayru/Probulator/blob/86351e5f3ed78f086837e215f028a344b058dfb5/Source/Probulator/ExperimentSG.h#L155).
 
 If you want to see this method running in a lightmap baking context, Matt Pettineo has integrated it into [The Baking Lab](https://github.com/TheRealMJP/BakingLab). You can find it under the 'Running Average' and 'Running Average Non-Negative' solve modes. Note that there is currently an open [pull request](https://github.com/TheRealMJP/BakingLab/pull/5) to update the algorithm to the version described within this post.
+
+-------
+
+Below is a comparison from within [The Baking Lab](https://github.com/TheRealMJP/BakingLab) of the indirect specular from nine spherical Gaussian lobes. The exposure has been turned up to more clearly show the difference. Although the running average method has more visible noise, it generally reproduces the results of the least squares solve very well (and is substantially quicker!)
+
+Running Average:
+
+![Baking Lab Indirect Specular Running Average](/assets/spherical-gaussians/BakingLab-RunningAverage.png)
+
+Least Squares:
+
+![Baking Lab Indirect Specular Least Squares](/assets/spherical-gaussians/BakingLab-LeastSquares.png)
