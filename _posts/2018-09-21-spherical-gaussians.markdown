@@ -13,7 +13,7 @@ Recently, I've had need to build spherical Gaussian representations of a scene o
 
 Instead, games like The Order: 1886 just projected the samples onto the spherical Gaussian lobes [as if the lobes form an orthonormal basis](https://mynameismjp.wordpress.com/2016/10/09/sg-series-part-5-approximating-radiance-and-irradiance-with-sgs/), which gave low-quality results that lack contrast. For my research, I wanted to see if I could do better.
 
-After a bunch of experimentation, I found a new algorithm for progressively accumulating spherical Gaussian samples that gives results matching a standard least squares solve. 
+After a bunch of experimentation, I found a new (to my knowledge) algorithm for progressively accumulating spherical Gaussian samples that gives results matching a standard least squares solve. 
 
 The algorithm is as follows, and supports both non-negative and regular solves. While the implementation focuses on spherical Gaussians, the algorithm should work for *any* spherical basis function.
 
