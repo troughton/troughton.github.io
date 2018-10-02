@@ -72,7 +72,9 @@ struct SphericalGaussianBasis {
 }
 {% endhighlight %}
 
-I've called this a 'running average' since each new sample is evaluated against the Monte-Carlo estimate of the function based on the previous samples. I'll post the full derivation of why this works in a follow-up blog post. If we want each lobe to be non-negative, we simply clamp it; the next sample to come in will then be evaluated against the set of non-negative lobes.
+I've called this a 'running average' since each new sample is evaluated against the Monte-Carlo estimate of the function based on the previous samples. If we want each lobe to be non-negative, we simply clamp it; the next sample to come in will then be evaluated against the set of non-negative lobes.
+
+I provide a mathematical derivation of the method [here](/rendering/irradiance-caching/spherical-gaussians/2018/10/02/running-average-derivation.html).
 
 So how does it look? Well, here are the results for the 'ennis.hdr' environment map using Halton-sequence sample directions and twelve lobes, where 'Running Average' is my new method. In these images, I'm using [Stephen Hill's fitted approximation for a cosine lobe](https://mynameismjp.wordpress.com/2016/10/09/sg-series-part-3-diffuse-lighting-from-an-sg-light-source/) to evaluate the irradiance for all encoding methods. 
 
