@@ -33,7 +33,7 @@ $$ E = \int_S ( \sum_i b_i B_i(s) - f(s))^2 $$
 
 $$ \frac{dE}{b_i} = 0 $$
 
-Let $$ g(s) = \sum_k b_k B_i(s) - f(s) $$. Therefore, $$ \frac{d}{b_k} \begin{bmatrix} g(s) \end{bmatrix} = B_k(s) $$ for each $$ b_k $$.
+Let $$ g(s) = \sum_k b_k B_k(s) - f(s) $$. Therefore, $$ \frac{d}{b_k} \begin{bmatrix} g(s) \end{bmatrix} = B_k(s) $$ for each $$ b_k $$.
 
 $$
 \begin{align*}
