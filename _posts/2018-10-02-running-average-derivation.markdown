@@ -29,7 +29,24 @@ $$ \min \int_S ( \sum_i b_i B_i(s) - f(s))^2 $$
 
 To minimise, we differentiate the function with respect to each unknown $$ b_i $$ and then set the derivative to 0.
 
-$$ \frac{d}{b_i} = 2(  \sum_k b_k \int_S ( B_i(s) \cdot B_k(s) ) ) - 2 \int_S (B_i(s) \cdot f(s)) $$
+$$ E = \int_S ( \sum_i b_i B_i(s) - f(s))^2 $$
+
+$$ \frac{dE}{b_i} = 0 $$
+
+Let $$ g(s) = \sum_k b_k B_i(s) - f(s) $$. Therefore, $$ \frac{d}{b_k} \begin{bmatrix} g(s) \end{bmatrix} = B_k(s). $$
+
+$$
+\begin{align*}
+
+\frac{dE}{b_i} &= \frac{d}{b_i} \begin{bmatrix} \int_S ( \sum_i b_i B_i(s) - f(s))^2 \end{bmatrix} \\ 
+               &= \frac{d}{b_i} \begin{bmatrix} \int_S ( g(s) )^2 \end{bmatrix} \\ 
+               &= 2 \int_S g(s) \frac{d}{b_i} \begin{bmatrix} g(s) \end{bmatrix}  \\ 
+               &= 2 \int_S g(s) B_i(s)  \\ 
+              &= 2(  \sum_k b_k \int_S ( B_i(s) \cdot B_k(s) ) ) - 2 \int_S (B_i(s) \cdot f(s))
+\end{align*}
+$$
+
+Therefore, by setting $$ \frac{dE}{b_i} = 0 $$,
 
 $$
 \begin{equation} \label{LeastSquaresMinimiser}
