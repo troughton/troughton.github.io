@@ -126,12 +126,12 @@ This method does require at least 32-bit intermediates for accumulation; half-pr
 
 While testing this, I used [Probulator](https://github.com/kayru/Probulator), a useful open-source tool for testing different lighting encoding strategies. This method has also been merged into Probulator, and the source can be viewed [here](https://github.com/kayru/Probulator/blob/86351e5f3ed78f086837e215f028a344b058dfb5/Source/Probulator/ExperimentSG.h#L155).
 
-If you want to see this method running in a lightmap baking context, Matt Pettineo has integrated it into [The Baking Lab](https://github.com/TheRealMJP/BakingLab). You can find it under the 'Running Average' and 'Running Average Non-Negative' solve modes. Note that there is currently an open [pull request](https://github.com/TheRealMJP/BakingLab/pull/6) to fix a couple of issues with the implementation.
+If you want to see this method running in a lightmap baking context, Matt Pettineo has integrated it into [The Baking Lab](https://github.com/TheRealMJP/BakingLab). You can find it under the 'Running Average' and 'Running Average Non-Negative' solve modes.
 
 -------
 <br>
 
-Below is a comparison from within [The Baking Lab](https://github.com/TheRealMJP/BakingLab) of the indirect specular from nine spherical Gaussian lobes using 10,000 samples per pixel. The exposure has been turned up to more clearly show the results. There are slight visual differences if you flick back and forward, but it's very close!
+Below is a comparison from within [The Baking Lab](https://github.com/TheRealMJP/BakingLab) of the indirect specular from nine spherical Gaussian lobes using 10,000 samples per texel. The exposure has been turned up to more clearly show the results. There are slight visual differences if you flick back and forward, but it's very close!
 
 Running Average:
 
