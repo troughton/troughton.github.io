@@ -53,11 +53,8 @@ struct SphericalGaussianBasis {
             // However, if you don't want to store a weight per-lobe you can instead substitute it with the
             // precomputed integral at a slight increase in error.
 
-            // Clamp the MC-computed integral to within a reasonable ad-hoc factor of the actual integral to avoid noise.
-            let sphericalIntegral = max(
-                self.lobeMCSphericalIntegrals[i],
-                lobes[i].precomputedSphericalIntegral * 0.75
-            )
+            // Clamp the MC-computed integral to at least the precomputed integral to reduce variance.
+            let sphericalIntegral = max(self.lobeMCSphericalIntegrals[i], lobes[i].precomputedSphericalIntegral)
             
             let otherLobesContribution = currentEstimate - self.lobes[i].amplitude * weight
             let newValue = (sample.value - otherLobesContribution) * weight / sphericalIntegral
@@ -123,18 +120,18 @@ I originally posted [a variant of this algorithm](/rendering/irradiance-caching/
 
 The results are now as good as a standard least-squares solve if the sample directions are randomly distributed, although it does deteriorate if the sample directions are correlated (as they would be, say, if you were reading pixels row by row from a lat-long image map). Conveniently, when we're accumulating samples from path tracing the sample directions are usually stratified or uniformly random. [^2] 
 
-This method can also be a little noisier than a standard least squares solve in the context of lightmap path tracing, since the final result is determined by early estimates which may vary from texel to texel; standard denoising techniques and a proper filter kernel for accumulation should help to alleviate this.
+This method does require at least 32-bit intermediates for accumulation; half-precision produces obvious visual artefacts and biasing towards high-intensity samples.
 
 [^2]: One note of caution: some low-discrepancy sequences (e.g. fixed-length ones like the Hammersley sequence) will not work well since successive samples are correlated, even though the sequence is well-distributed over the entire domain. One way around this is to uniformly randomly shuffle the samples. 
 
 While testing this, I used [Probulator](https://github.com/kayru/Probulator), a useful open-source tool for testing different lighting encoding strategies. This method has also been merged into Probulator, and the source can be viewed [here](https://github.com/kayru/Probulator/blob/86351e5f3ed78f086837e215f028a344b058dfb5/Source/Probulator/ExperimentSG.h#L155).
 
-If you want to see this method running in a lightmap baking context, Matt Pettineo has integrated it into [The Baking Lab](https://github.com/TheRealMJP/BakingLab). You can find it under the 'Running Average' and 'Running Average Non-Negative' solve modes. Note that there is currently an open [pull request](https://github.com/TheRealMJP/BakingLab/pull/5) to update the algorithm to the version described within this post.
+If you want to see this method running in a lightmap baking context, Matt Pettineo has integrated it into [The Baking Lab](https://github.com/TheRealMJP/BakingLab). You can find it under the 'Running Average' and 'Running Average Non-Negative' solve modes. Note that there is currently an open [pull request](https://github.com/TheRealMJP/BakingLab/pull/6) to fix a couple of issues with the implementation.
 
 -------
 <br>
 
-Below is a comparison from within [The Baking Lab](https://github.com/TheRealMJP/BakingLab) of the indirect specular from nine spherical Gaussian lobes. The exposure has been turned up to more clearly show the difference. Although the running average method has more visible noise, it generally reproduces the results of the least squares solve very well (and is substantially quicker!)
+Below is a comparison from within [The Baking Lab](https://github.com/TheRealMJP/BakingLab) of the indirect specular from nine spherical Gaussian lobes using 10,000 samples per pixel. The exposure has been turned up to more clearly show the results. There are slight visual differences if you flick back and forward, but it's very close!
 
 Running Average:
 
@@ -143,3 +140,7 @@ Running Average:
 Least Squares:
 
 ![Baking Lab Indirect Specular Least Squares](/assets/spherical-gaussians/BakingLab-LeastSquares.png)
+
+Difference:
+
+![Baking Lab Indirect Specular Difference](/assets/spherical-gaussians/BakingLab-Difference.png)
