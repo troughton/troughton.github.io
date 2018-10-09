@@ -111,13 +111,13 @@ b_i &\approx \frac{ B_i(\omega) \cdot ( v - \sum_{k, k \not= i} b_k B_k(\omega) 
 \end{align*}
 $$
 
-Note that $$ v - \sum_{k} b_k B_k(\omega) $$ is constant for all the lobes given a single sample.
+Note that $$ v - \sum_{k} b_k B_k(\omega) $$ is constant for all the lobes given a single sample, and that all $$ b_x $$ values on the right side of the equation refer to the values from the previous equation.
 
-This is effectively the equation that is performed at each step of the 'running average' algorithm. Each $$ b_i $$ estimate is accumulated and averaged to give a Monte Carlo estimate of the true value of $$ b_i $$ for the function.
+This is effectively the equation that is solved at each step of the 'running average' algorithm. Each $$ b_i $$ estimate is accumulated and averaged to give a Monte Carlo estimate of the true value of $$ b_i $$ for the function.
 
-It's worth noting that there's an inherent inaccuracy here since each successive b_i estimate is based on previous estimates; an early high-variance $$ f(s) $$ estimate will propagate throughout the rest of the solve process. If the average values for $$ b_i $$ were known and exact then this method would also be exact; however, that would defeat the purpose! In practice, though, this inaccuracy tends to have a very small impact.
+It's worth noting that there's an inherent inaccuracy here since each successive b_i estimate is based on previous estimates; an early high-variance $$ f(s) $$ estimate will propagate throughout the rest of the solve process. If the average values for $$ b_i $$ were known and exact then this method would also be exact; however, that would defeat the purpose! In practice, though, this inaccuracy tends to have a very small impact.[^1]
 
-One effective way to combat this issue is to gradually increase the sample weights over time. Anecdotally, I can say using an exponential weighting of $$ w = 1 - exp(-\frac{sampleIndex}{sampleCount}) $$ provides a quality boost with very noisy input compared to $$ w = 1 $$, with only a very slight reduction in quality for when $$ f(s) $$ represents the true function value. If the total sample count is unknown, as in progressive rendering, using $$ w = 1 - exp(-\frac{sampleIndex}{1024}) $$ seems to work reasonably well.
+[^1]: Two possible ways to reduce this inaccuracy: either gradually increase the sample weights over time (e.g. with $$ w = 1 - exp(-\frac{sampleIndex}{sampleCount}) $$) or seed the $$ b $$ vector with the estimates from a previous, low-sample-count run.
 
 In this equation, the integral in the denominator can be calculated using Monte Carlo integration in the same way that $$ b_i $$ is. In fact, it turns out that computing both of them in lockstep improves the accuracy of the algorithm since any sampling bias in the numerator will be partially balanced out by the bias in the denominator. However, it's also true that the integral may be wildly inaccurate at small sample counts; therefore, to balance that out, I recommend clamping the estimator for the integral to at least the true integral. Alternatively, it's possible to always use the precomputed true integral on the denominator and only estimate the $$ b $$ vector, although this results in slightly increased error.
 
@@ -129,19 +129,19 @@ My [original algorithm](/rendering/irradiance-caching/spherical-gaussians/2018/0
 Effectively, at each step, it solved the following equation:
 
 $$
-b_i = \frac{ B_i(s) \cdot (f(s) - \sum_k b_k B_k(s) ) } { \int_S ( B_i(s) ) } + b_i
+b_i = \frac{ B_i(\omega) \cdot (v - \sum_k b_k B_k(\omega) ) } { \int_S ( B_i(s) ) } + b_i
 $$
 
 If we rearrange that to get into a form vaguely resembling our proper solution above:
 
 $$
 \begin{align*}
-b_i &= \frac{ B_i(s) \cdot (f(s) - \sum_k b_k B_k(s) ) } { \int_S ( B_i(s) ) } + b_i \\
-    &= \frac{ B_i(s) \cdot (f(s) - \sum_k b_k B_k(s) ) + b_i \int_S B_i(s) } { \int_S B_i(s)  } \\
-    &\approx \frac{ B_i(s) \cdot (f(s) - \sum_k b_k B_k(s) ) + b_i B_i(s) } { \int_S B_i(s) } \\
-    &\approx \frac{ B_i(s) \cdot (f(s) - \sum_k b_k B_k(s) + b_i ) } { \int_S B_i(s) } \\
-    &\approx \frac{ B_i(s) \cdot (f(s) - \sum_{k, k \not= i} b_k B_k(s) - b_i B_i(s) + b_i ) } { \int_S B_i(s) } \\
-    &\approx \frac{ B_i(s) \cdot (f(s) - \sum_{k, k \not= i} b_k B_k(s) + (1 - B_i(s)) b_i) } { \int_S B_i(s) }
+b_i &= \frac{ B_i(\omega) \cdot (v - \sum_k b_k B_k(s) ) } { \int_S ( B_i(s) ) } + b_i \\
+    &= \frac{ B_i(\omega) \cdot (v - \sum_k b_k B_k(s) ) + b_i \int_S B_i(s) } { \int_S B_i(s)  } \\
+    &\approx \frac{ B_i(\omega) \cdot (v - \sum_k b_k B_k(s) ) + b_i B_i(\omega) } { \int_S B_i(s) } \\
+    &\approx \frac{ B_i(\omega) \cdot (v - \sum_k b_k B_k(s) + b_i ) } { \int_S B_i(s) } \\
+    &\approx \frac{ B_i(\omega) \cdot (v - \sum_{k, k \not= i} b_k B_k(\omega) - b_i B_i(\omega) + b_i ) } { \int_S B_i(s) } \\
+    &\approx \frac{ B_i(\omega) \cdot (v - \sum_{k, k \not= i} b_k B_k(\omega) + (1 - B_i(\omega)) b_i) } { \int_S B_i(s) }
 \end{align*}
 $$
 
@@ -149,31 +149,31 @@ For the spherical integral of a spherical Gaussian basis function with itself, $
 
 $$
 \begin{align*}
-b_i &\approx \frac{ B_i(s) \cdot (f(s) - \sum_{k, k \not= i} b_k B_k(s) + (1 - B_i(s)) b_i) } { 2 \int_S (B_i(s))^2 } \\
-&\approx \frac{ B_i(s) \cdot (f(s) - \sum_{k, k \not= i} b_k B_k(s))} { 2 \int_S (B_i(s))^2 } + \frac{ B_i(s) \cdot (1 - B_i(s)) b_i) } { 2 \int_S (B_i(s))^2 }
+b_i &\approx \frac{ B_i(\omega) \cdot (v - \sum_{k, k \not= i} b_k B_k(\omega) + (1 - B_i(\omega)) b_i) } { 2 \int_S (B_i(s))^2 } \\
+&\approx \frac{ B_i(\omega) \cdot (v - \sum_{k, k \not= i} b_k B_k(\omega))} { 2 \int_S (B_i(s))^2 } + \frac{ B_i(\omega) \cdot (1 - B_i(\omega)) b_i) } { 2 \int_S (B_i(s))^2 }
 \end{align*}
 $$
 
 This is very close to our 'correct' equation above. In fact, it becomes equal when
 
 $$
-f(s) - \sum_{k, k \not= i} b_k B_k(s) = (1 - B_i(s))b_i
+v - \sum_{k, k \not= i} b_k B_k(\omega) = (1 - B_i(\omega))b_i
 $$
 
 We can rearrange that a little further:
 
 $$
 \begin{align*}
-f(s) &= b_i - b_i B_i(s) + \sum_{k, k \not= i} b_k B_k(s) \\
-     &= b_i + \sum_{k} b_k B_k(s) - 2 b_i B_i(s)
+v &= b_i - b_i B_i(\omega) + \sum_{k, k \not= i} b_k B_k(\omega) \\
+     &= b_i + \sum_{k} b_k B_k(\omega) - 2 b_i B_i(\omega)
 \end{align*}
 $$
 
-Since we assume that, as the fit converges, $$ f(s) \approx \sum_{k} b_k B_k(s) $$, we're left with:
+Since $$ v $$ is an estimator for $$ f(\omega) $$ and we assume that, as the fit converges, $$ f(s) \approx \sum_{k} b_k B_k(s) $$, we're left with:
 
 $$
-2b_i B_i(s) = b_i \\
-B_i(s) = \frac{1}{2}
+2b_i B_i(\omega) = b_i \\
+B_i(\omega) = \frac{1}{2}
 $$
 
 In other words, using the original algorithm for a given sample, the error is mostly determined by how close $$ B_i(s) $$ is to $$ \frac{1}{2} $$. Since the influence of samples with higher basis weights $$ B_i(s) $$ is greater anyway, this turned out to be a reasonable approximation. However, given the option, I'd still recommend using the corrected algorithm!
