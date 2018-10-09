@@ -82,29 +82,36 @@ This is a perfectly valid method of performing least squares without storing all
 
 In the 'running average' algorithm, we want to reconstruct the $$ b_i $$ amplitudes as every sample comes in so that the results can be displayed at every iteration. There are therefore a few more steps we need to perform.
 
-Let's take the above equation and look at it for a single sample:
+Let's take the above equation and look at it for a single sample. Let $$ \omega $$ be the sample direction and $$ v $$ be the sample value (which is a Monte-Carlo estimate of $$ f(\omega) $$).
 
 $$
-B_i(s) \cdot f(s) = \sum_k b_k \int_S ( B_i(s) \cdot B_k(s) ) )
+B_i(\omega) \cdot v = \sum_k b_k \int_S ( B_i(s) \cdot B_k(s) ) )
 $$
 
-We can rearrange this to solve for a single amplitude $$ b_i $$:
+We can rearrange this to solve for a Monte-Carlo estimate of a single amplitude $$ b_i $$:
 
 $$
-B_i(s) \cdot f(s) = b_i \int_S ( B_i(s) )^2 + \sum_{k, k \not= i} b_k \int_S ( B_i(s) \cdot B_k(s) ) )
-$$
-
-$$
-b_i \int_S ( B_i(s) )^2 = B_i(s) \cdot f(s) - \sum_{k, k \not= i} b_k \int_S ( B_i(s) \cdot B_k(s) ) )
+B_i(\omega) \cdot v = b_i \int_S ( B_i(s) )^2 + \sum_{k, k \not= i} b_k \int_S ( B_i(s) \cdot B_k(s) ) )
 $$
 
 $$
-b_i = \frac{ B_i(s) \cdot f(s) - \sum_{k, k \not= i} b_k \int_S ( B_i(s) \cdot B_k(s) ) ) }{ \int_S ( B_i(s) )^2 }
+b_i \int_S ( B_i(s) )^2 = B_i(\omega) \cdot v - \sum_{k, k \not= i} b_k \int_S ( B_i(s) \cdot B_k(s) ) )
 $$
 
 $$
-b_i \approx \frac{ B_i(s) \cdot ( f(s) - \sum_{k, k \not= i} b_k B_k(s) ) ) }{ \int_S ( B_i(s) )^2 }
+b_i = \frac{ B_i(\omega) \cdot v - \sum_{k, k \not= i} b_k \int_S ( B_i(s) \cdot B_k(s) ) ) }{ \int_S ( B_i(s) )^2 }
 $$
+
+$$ B_i(\omega) \cdot B_k(\omega) $$ is a Monte-Carlo estimator for $$ \int_S ( B_i(s) \cdot B_k(s) $$; we can therefore approximate the true integral with the estimate for the sample at each step.
+
+$$
+\begin{align*}
+b_i &\approx \frac{ B_i(\omega) \cdot ( v - \sum_{k, k \not= i} b_k B_k(\omega) ) ) }{ \int_S ( B_i(s) )^2 } \\
+    &\approx \frac{ B_i(\omega) \cdot ( v - \sum_{k} b_k B_k(\omega) + b_i B_i(\omega) ) ) }{ \int_S ( B_i(s) )^2 }
+\end{align*}
+$$
+
+Note that $$ v - \sum_{k} b_k B_k(\omega) $$ is constant for all the lobes given a single sample.
 
 This is effectively the equation that is performed at each step of the 'running average' algorithm. Each $$ b_i $$ estimate is accumulated and averaged to give a Monte Carlo estimate of the true value of $$ b_i $$ for the function.
 
