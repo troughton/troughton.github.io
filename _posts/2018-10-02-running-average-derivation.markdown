@@ -82,44 +82,49 @@ This is a perfectly valid method of performing least squares without storing all
 
 In the 'running average' algorithm, we want to reconstruct the $$ b_i $$ amplitudes as every sample comes in so that the results can be displayed at every iteration. There are therefore a few more steps we need to perform.
 
-Let's take the above equation and look at it for a single sample. Let $$ \omega $$ be the sample direction and $$ v $$ be the sample value (which is a Monte-Carlo estimate of $$ f(\omega) $$).
+Let's rearrange the above equation to solve for a single $$ b_i $$.
 
-$$
-B_i(\omega) \cdot v = \sum_k b_k \int_S ( B_i(s) \cdot B_k(s) ) )
-$$
-
-We can rearrange this to solve for a Monte-Carlo estimate of a single amplitude $$ b_i $$:
-
-$$
-B_i(\omega) \cdot v = b_i \int_S ( B_i(s) )^2 + \sum_{k, k \not= i} b_k \int_S ( B_i(s) \cdot B_k(s) ) )
-$$
-
-$$
-b_i \int_S ( B_i(s) )^2 = B_i(\omega) \cdot v - \sum_{k, k \not= i} b_k \int_S ( B_i(s) \cdot B_k(s) ) )
-$$
-
-$$
-b_i = \frac{ B_i(\omega) \cdot v - \sum_{k, k \not= i} b_k \int_S ( B_i(s) \cdot B_k(s) ) ) }{ \int_S ( B_i(s) )^2 }
-$$
-
-$$ B_i(\omega) \cdot B_k(\omega) $$ is a Monte-Carlo estimator for $$ \int_S ( B_i(s) \cdot B_k(s) $$; we can therefore approximate the true integral with the estimate for the sample at each step.
-
-$$
+$$ 
 \begin{align*}
-b_i &\approx \frac{ B_i(\omega) \cdot ( v - \sum_{k, k \not= i} b_k B_k(\omega) ) ) }{ \int_S ( B_i(s) )^2 } \\
-    &\approx \frac{ B_i(\omega) \cdot ( v - \sum_{k} b_k B_k(\omega) + b_i B_i(\omega) ) ) }{ \int_S ( B_i(s) )^2 }
+\int_S ( B_i(s) \cdot f(s) ) &= \sum_k b_k \int_S ( B_i(s) \cdot B_k(s) ) ) \\
+                             &= b_i \int_S B_i(s)^2 + \sum_{k, k \not= i} b_k \int_S ( B_i(s) \cdot B_k(s) )
 \end{align*}
 $$
 
-Note that $$ v - \sum_{k} b_k B_k(\omega) $$ is constant for all the lobes given a single sample, and that all $$ b_x $$ values on the right side of the equation refer to the values from the previous equation.
+$$ 
+b_i \int_S B_i(s)^2 = \int_S ( B_i(s) \cdot f(s) ) - \sum_{k, k \not= i} b_k \int_S ( B_i(s) \cdot B_k(s) )
+$$
 
-This is effectively the equation that is solved at each step of the 'running average' algorithm. Each $$ b_i $$ estimate is accumulated and averaged to give a Monte Carlo estimate of the true value of $$ b_i $$ for the function.
+We can bring the entire right hand side under the same integral due to the linearity of integration.
 
-It's worth noting that there's an inherent inaccuracy here since each successive b_i estimate is based on previous estimates; an early high-variance $$ f(s) $$ estimate will propagate throughout the rest of the solve process. If the average values for $$ b_i $$ were known and exact then this method would also be exact; however, that would defeat the purpose! In practice, though, this inaccuracy tends to have a very small impact.[^1]
+$$
+\begin{align*}
+b_i \int_S B_i(s)^2 &= \int_S ( B_i(s) \cdot f(s)  - \sum_{k, k \not= i} b_k ( B_i(s) \cdot B_k(s) ) ) \\
+                      &= \int_S ( B_i(s) \cdot ( f(s)  - \sum_{k, k \not= i} b_k \cdot B_k(s) ) )
+\end{align*}
+$$
 
-[^1]: Two possible ways to reduce this inaccuracy: either gradually increase the sample weights over time (e.g. with $$ w = 1 - exp(-\frac{sampleIndex}{sampleCount}) $$) or seed the $$ b $$ vector with the estimates from a previous, low-sample-count run.
+Finally, we end up with the following equation for $$ b_i $$:
 
-In this equation, the integral in the denominator can be calculated using Monte Carlo integration in the same way that $$ b_i $$ is. In fact, it turns out that computing both of them in lockstep improves the accuracy of the algorithm since any sampling bias in the numerator will be partially balanced out by the bias in the denominator. However, it's also true that the integral may be wildly inaccurate at small sample counts; therefore, to balance that out, I recommend clamping the estimator for the integral to at least the true integral. Alternatively, it's possible to always use the precomputed true integral on the denominator and only estimate the $$ b $$ vector, although this results in slightly increased error.
+$$
+b_i = \frac{\int_S ( B_i(s) \cdot ( f(s)  - \sum_{k, k \not= i} b_k \cdot B_k(s) ) )}{\int_S B_i(s)^2 }
+$$
+
+The two spherical integrals here which can be computed in tandem using Monte-Carlo integration. The estimate for $$ b_i $$ given a single sample in direction $$ \omega $$ with a value $$ v $$ (where $$ v $$ is an estimate of $$ f(\omega) $$) is given by:
+
+$$
+b_i = \frac{B_i(\omega) \cdot ( v - \sum_{k, k \not= i} b_k \cdot B_k(\omega) )}{\int_S B_i(s)^2 }
+$$
+
+The average value of $$ b_i $$ across all samples will tend towards the true least-squares value.
+
+Likewise, the estimator for $$ \int_S (B_i(s))^2 $$ is given by averaging $$ B_i(\omega)^2 $$.
+
+To solve this for $$ b_i $$, we need to know the amplitudes $$ b_k $$ for all $$ k $$ where $$ k \not= i $$. We can approximate this by using the $$ b_k $$ values solved for in the previous iteration of the algorithm. As the number of samples increases, the $$ b $$ vector will gradually converge to the true value. The convergence could potentially be improved by seeding the $$ b $$ vector with the estimate from a low-sample-count run rather than with the 0 vector; in practice, the error seems to disappear fairly quickly.
+
+Similarly, since $$ v $$ is often only an estimator for the function value $$ f(\omega) $$ and not the true value, high variance in its estimate can cause errors in the $$ b $$ vector. One possible strategy to counter this is to gradually increase the sample weights over time (e.g. with $$ w = 1 - exp(-\frac{sampleIndex}{sampleCount}) $$); however, in my implementation I haven't found this to be necessary.
+
+In this running average method, the integral in the denominator is calculated using Monte Carlo integration in the same way that $$ b_i $$ is. In fact, it turns out that computing both of them in lockstep improves the accuracy of the algorithm since any sampling bias in the numerator will be partially balanced out by the bias in the denominator. However, it's also true that the integral may be wildly inaccurate at small sample counts and end up amplifying small values; therefore, to balance that out, I recommend clamping the estimator for the integral to at least the true integral. Alternatively, it's possible to always use the precomputed true integral on the denominator and only estimate the $$ b $$ vector, although this results in slightly increased error.
 
 ---------------
 <br>
