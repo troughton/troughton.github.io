@@ -43,7 +43,6 @@ struct SphericalGaussianBasis {
 
         for i in 0..<self.lobes.count {
             let weight = sampleLobeWeights[i]
-            if weight == 0 { continue }
             
             let sphericalIntegralGuess = weight * weight
             
@@ -57,14 +56,18 @@ struct SphericalGaussianBasis {
 
             // Clamp the MC-computed integral to at least the precomputed integral to reduce variance.
             let sphericalIntegral = max(self.lobeMCSphericalIntegrals[i], lobes[i].precomputedSphericalIntegral)
-            
-            let newValue = (delta + self.lobes[i].amplitude * weight) * weight / sphericalIntegral
+
+            let projection = self.lobes[i].amplitude * weight
+            let newValue = (delta + projection) * weight / sphericalIntegral
             
             self.lobes[i].amplitude += (newValue - self.lobes[i].amplitude) * sampleWeightScale
             
             if (self.nonNegativeSolve) {
                 self.lobes[i].amplitude = max(self.lobes[i].amplitude, float3(0))
             }
+
+            // Optional, slightly improves convergence:
+            delta += projection - self.lobes[i].amplitude * weight
         }
     }
 }
