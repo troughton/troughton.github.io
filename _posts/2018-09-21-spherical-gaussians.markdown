@@ -168,7 +168,7 @@ let newValue = (delta + projection) * weight / sphericalIntegral
 self.lobes[i].amplitude += (newValue - self.lobes[i].amplitude) * sampleWeightScale
 {% endhighlight %}
 
-These two snippets aren't exactly equivalent. In factorising the code, I approximated `projection * weight * weight / sphericalIntegral` as simply `projection`; it turns out that making this approximation helps to avoid error in the method. To make them equivalent, the first snippet would be:
+These two snippets aren't exactly equivalent. In factorising the code, I approximated ``projection * weight * weight / sphericalIntegral`` as simply ``projection``; it turns out that making this approximation helps to avoid error in the method. To make them equivalent, the first snippet would be:
 
 {% highlight swift %}
 let dampingTerm = 1.0 + (deltaScale * weight - sampleWeightScale)
