@@ -15,7 +15,7 @@ Instead, games like The Order: 1886 just projected the samples onto the spherica
 
 After a bunch of experimentation, I found a new (to my knowledge) algorithm for progressively accumulating spherical Gaussian samples that gives results matching a standard least squares solve. 
 
-The algorithm is as follows, and supports both non-negative and regular solves. While the implementation focuses on spherical Gaussians, the algorithm should work for *any* spherical basis function.
+The algorithm is as follows, and supports both non-negative and regular solves. While the implementation focuses on spherical Gaussians, the algorithm should work for *any* set of spherical basis functions, provided those basis functions don't overlap too much.
 
 {% highlight swift %}
 struct SphericalGaussianBasis {
@@ -28,18 +28,16 @@ struct SphericalGaussianBasis {
         totalAccumulatedWeight += sampleWeight
         let sampleWeightScale = sampleWeight / totalAccumulatedWeight
         
-        var currentEstimate = float3(0)
+        var delta = sample.value
         
         var sampleLobeWeights = [Float](repeating: 0.0, count: self.lobes.count)
         for (i, lobe) in self.lobes.enumerated() {
             let dotProduct = dot(lobe.axis, sample.direction)
             let weight = exp(lobe.sharpness * (dotProduct - 1.0))
-            currentEstimate += lobe.amplitude * weight
+            delta -= lobe.amplitude * weight
             
             sampleLobeWeights[i] = weight
         }
-        
-        let delta = sample.value - currentEstimate
 
         for i in 0..<self.lobes.count {
             let weight = sampleLobeWeights[i]
@@ -54,20 +52,27 @@ struct SphericalGaussianBasis {
             // However, if you don't want to store a weight per-lobe you can instead substitute it with the
             // precomputed integral at a slight increase in error.
 
-            // Clamp the MC-computed integral to at least the precomputed integral to reduce variance.
-            let sphericalIntegral = max(self.lobeMCSphericalIntegrals[i], lobes[i].precomputedSphericalIntegral)
+            // Interpolate from 1 to the true spherical integral as the sample count increases to avoid excess noise
+            // in the early estimates.
+            let sphericalIntegral = sampleWeightScale + (1 - sampleWeightScale) * self.lobeMCSphericalIntegrals[i]
 
-            let projection = self.lobes[i].amplitude * weight
-            let newValue = (delta + projection) * weight / sphericalIntegral
-            
-            self.lobes[i].amplitude += (newValue - self.lobes[i].amplitude) * sampleWeightScale
+            // Alternatively, you can also use this for the spherical integral:
+            // let sphericalIntegral = max(self.lobeMCSphericalIntegrals[i], self.lobes[i].precomputedSphericalIntegral)
+
+            // The acceleration coefficient helps to avoid local minima, although it can make the solve noisier.
+            // 3.0 seems to be a good value in my tests; 1.0 means no acceleration.
+            let accelerationCoefficient : Float = 3.0
+
+            let deltaScale = accelerationCoefficient * sampleWeightScale * weight / sphericalIntegral
+            self.lobes[i].amplitude += delta * deltaScale
             
             if (self.nonNegativeSolve) {
                 self.lobes[i].amplitude = max(self.lobes[i].amplitude, float3(0))
             }
 
             // Optional, slightly improves convergence:
-            delta += projection - self.lobes[i].amplitude * weight
+            // This step is more important when the lobes overlap significantly:
+            delta *= 1.0 - deltaScale * weight
         }
     }
 }
@@ -135,7 +140,7 @@ If you want to see this method running in a lightmap baking context, Matt Pettin
 -------
 <br>
 
-Below is a comparison from within [The Baking Lab](https://github.com/TheRealMJP/BakingLab) of the indirect specular from nine spherical Gaussian lobes using 10,000 samples per texel. The exposure has been turned up to more clearly show the results. There are slight visual differences if you flick back and forward, but it's very close!
+Below is a comparison from within [The Baking Lab](https://github.com/TheRealMJP/BakingLab) of the indirect specular from nine spherical Gaussian lobes using 10,000 samples per texel. The exposure has been turned up to more clearly show the results. There are slight visual differences if you flick back and forward, but it's very close! The main difference is that the running average algorithm can find different local minima per-texel, and so results appear noisier across the texels.
 
 Running Average:
 
@@ -145,6 +150,43 @@ Least Squares:
 
 ![Baking Lab Indirect Specular Least Squares](/assets/spherical-gaussians/BakingLab-LeastSquares.png)
 
-Difference:
+-------
+<br>
 
-![Baking Lab Indirect Specular Difference](/assets/spherical-gaussians/BakingLab-Difference.png)
+The code above has been factorised to try to limit the number of operations on colours. For example, the lines:
+
+{% highlight swift %}
+let deltaScale = accelerationCoefficient * sampleWeightScale * weight / sphericalIntegral
+self.lobes[i] += delta * deltaScale
+{% endhighlight %}
+
+are more naturally expressed as:
+
+{% highlight swift %}
+let projection = self.lobes[i].amplitude * weight
+let newValue = (delta + projection) * weight / sphericalIntegral
+self.lobes[i].amplitude += (newValue - self.lobes[i].amplitude) * sampleWeightScale
+{% endhighlight %}
+
+These two snippets aren't exactly equivalent. In factorising the code, I approximated `projection * weight * weight / sphericalIntegral` as simply `projection`; it turns out that making this approximation helps to avoid error in the method. To make them equivalent, the first snippet would be:
+
+{% highlight swift %}
+let dampingTerm = 1.0 + (deltaScale * weight - sampleWeightScale)
+self.lobes[i].amplitude *= dampingTerm
+
+let deltaScale = accelerationCoefficient * sampleWeightScale * weight / sphericalIntegral
+self.lobes[i] += delta * deltaScale
+{% endhighlight %}
+
+Similarly, 
+
+{% highlight swift %}
+delta *= 1.0 - deltaScale * weight
+{% endhighlight %}
+
+is equivalent to:
+
+{% highlight swift %}
+let oldAmplitude = self.lobes[i].amplitude - delta * deltaScale
+delta = delta + oldAmplitude * weight - self.lobes[i].amplitude * weight
+{% endhighlight %}

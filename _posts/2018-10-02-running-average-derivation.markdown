@@ -50,7 +50,7 @@ Therefore, by setting $$ \frac{dE}{b_i} = 0 $$,
 
 $$
 \begin{equation} \label{LeastSquaresMinimiser}
-\int_S (B_i(s) \cdot f(s)) = \sum_k b_k \int_S ( B_i(s) \cdot B_k(s) ) )
+\int_S (B_i(s) \cdot f(s)) = \sum_k b_k \int_S ( B_i(s) \cdot B_k(s) ) ) 
 \end{equation}
 $$
 
