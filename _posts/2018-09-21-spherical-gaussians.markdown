@@ -22,7 +22,7 @@ struct SphericalGaussianBasis {
     var lobes : [SphericalGaussian]
     var totalAccumulatedWeight : Float = 0.0
     var lobeMCSphericalIntegrals = [Float](repeating: 0.0, count: lobes.count) // Optional, can be precomputed at a slight increase in error.
-    let nonNegativeSolve : Bool
+    let nonNegativeSolve : Bool 
     
     mutating func accumulateSample(_ sample: RadianceSample, sampleWeight: Float = 1.0) {
         totalAccumulatedWeight += sampleWeight
