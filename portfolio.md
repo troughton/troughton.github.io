@@ -105,7 +105,6 @@ Waterfall Swoop was the first project in a modelling and animation course. I mod
 #### 'March to Scurry' (2015)
 
 <iframe src="https://player.vimeo.com/video/339451361" width="740" height="416" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-<p><a href="https://vimeo.com/339451361">MDDN 241: Project 2</a> from <a href="https://vimeo.com/user9860327">Thomas Roughton</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
 
 Our task for this project was to take a model someone else had made (in my case, an ant) and transform it into a different model; I chose a living computer mouse. I modelled everything apart from the ant in this scene and animated it all.
 
