@@ -20,7 +20,7 @@ Over the course of my University studies, I've worked in conjunction with [Josep
 
 - Master of Science in Computer Science (2019, pending acceptance): Interactive Generation of Path-Traced Lightmaps.
 - Victoria Masters by Thesis Scholarship (2018)
-- Bachelor of Science, majoring in Computer Science and minoring in Media Design (2016).
+- Bachelor of Science, majoring in Computer Science and minoring in Media Design (A+ average) (2016).
 - Victoria Vice Chancellor's Excellence Scholarship (2014)
 - NZQA Outstanding Scholarships in Calculus and Classics, and Scholarships in Physics, Chemistry, and Technology.
 
