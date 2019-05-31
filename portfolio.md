@@ -12,7 +12,7 @@ I specialise in computer graphics and real-time rendering, where I've contribute
 
 I am highly motivated, have high standards, and learn quickly. I'm constantly exploring possibilities, finding ways that things could be done better, and acting upon them. I strongly value the end user experience in my work, whether that be a consumer, artist, or API user, and am excited by what more by what technology enables people to do than by the technology itself.
 
-My background in programming began with writing iOS apps in Objective-C at the age of 13. Since 2015, I've been writing most of my code in the [Swift programming language](https://swift.org), and have contributed to the compiler in order to help port it to Windows. I have experience in C, C++, Java, Javascript, C#, Swift, Lua, Python, MSL, HLSL, GLSL, and even a small amount of Prolog, Haskell and MIPS assembly. The promise of languages like Swift and Rust excites me, and I'm looking forward to seeing the industry move away from C and C++. 
+My background in programming began with writing iOS apps in Objective-C at the age of 13. Since 2015, I've been writing most of my code in the [Swift programming language](https://swift.org), and have contributed to the compiler in order to help port it to Windows. I also have experience in C, C++, Java, Javascript, C#, Swift, Python, MSL, HLSL, GLSL, and even a small amount of Prolog, Haskell and MIPS assembly. The promise of languages like Swift and Rust excites me, and I'm looking forward to seeing the industry move away from C and C++. 
 
 Over the course of my University studies, I've worked in conjunction with [Joseph Bennett](http://josephbennett.me) to develop a cross-platform game engine in Swift. This has been a great opportunity to learn about a wide range of topics, including engine architecture, data-oriented design, different graphics APIs, various rendering techniques, allocator management, SIMD programming, and more. We hope to use this engine to release a game in the near future.
 
@@ -20,7 +20,7 @@ Over the course of my University studies, I've worked in conjunction with [Josep
 
 - Master of Science in Computer Science (2019, pending acceptance): Interactive Generation of Path-Traced Lightmaps.
 - Bachelor of Science, majoring in Computer Science and minoring in Media Design (2016).
-<!-- - NZQA Outstanding Scholarships in Calculus and Classics, and Scholarships in Physics, Chemistry, and Technology. -->
+- NZQA Outstanding Scholarships in Calculus and Classics, and Scholarships in Physics, Chemistry, and Technology.
 
 ## Work Experience
 
@@ -42,7 +42,7 @@ I also contribute to the open-source [Swift programming language](https://github
 
 ## Portfolio
 
-### Interdimensional Llama (2016)
+### 'Interdimensional Llama' (2016)
 
 ![Interdimensional Llama](/assets/portfolio/IDLHeader.png)
 
@@ -50,7 +50,7 @@ Interdimensional Llama was a perspective-switching puzzle game made in conjuncti
 
 Along with helping to design the rules for the game, I worked on C# gameplay code within Unity, primarily contributing to the grid-based navigation system and camera management code.
 
-#### Atmospheric Llama (2017)
+#### 'Atmospheric Llama' (2017)
 
 ![Atmospheric Llama](/assets/portfolio/AtmosphericLlama.jpg)
 
@@ -62,17 +62,39 @@ _(I recommend watching the video at 1.5x - 2x speed.)_
 
 To add some extra challenge, we decided to implement this within our own engine, which was written more-or-less from the ground up for this project. This ended up including implementing an early version of [SwiftFrameGraph](https://github.com/troughton/SwiftFrameGraph), a layer-based animation system, local light probes, clustered shading, and BVH-based frustum culling, all in the space of twelve part-time weeks. There are many technical issues in the final result – directional shadows are particularly rough – but I'm still proud of what we managed to achieve.
 
-### Illumination (2016)
+### 'Official Business' (2017)
+
+For this university project, the task was to composite synthetic objects into a real scene using only a modified version of [PBRT](https://pbrt.org) (i.e. no Photoshop adjustments). I implemented [differential rendering](http://www.pauldebevec.com/Research/IBL/debevec-siggraph98.pdf) within PBRT, constructed proxy geometry to match the photographed scene, and tweaked materials.
+
+The below image contains four synthetic objects. See if you can spot them!
+
+![Official Business with digital objects](/assets/portfolio/OfficialBusiness.jpg)
+
+<details><summary>Show Spoilers</summary>
+
+<br>
+<p>Source image:</p>
+
+<p><img src="/assets/portfolio/OfficialBusinessUnmodified.jpg"></p>
+
+<p>Proxy Geometry:</p>
+ 
+<p><img src="/assets/portfolio/OfficialBusinessProxyGeometry.jpg"></p>
+
+</details><br>
+
+### 'Illumination' (2016)
 
 <iframe src="https://player.vimeo.com/video/183785457" width="740" height="416" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 
 Illumination is a semi-procedural realtime animation driven by a music track I created. The MIDI events for the music were exported from my DAW and imported into our custom-built 3D engine, which then used it to apply scripted animation and lighting changes to a scene imported from Maya. The animation makes use of physically-based rendering and [LTC](https://eheitzresearch.wordpress.com/415-2/)-based polygonal area lights.
 
+
 ### Modelling and Animation
 
 All of the projects below were done within the span of fourteen weeks as part of a part-time University course. 
 
-#### Waterfall Swoop (2015)
+#### 'Waterfall Swoop' (2015)
 
 ![Waterfall Swoop](/assets/portfolio/WaterfallSwoop.jpg)
 
@@ -80,14 +102,14 @@ Waterfall Swoop was the first project in a modelling and animation course. I mod
 
 ![Waterfall Swoop Hawk Model](/assets/portfolio/WaterfallSwoopModel.png)
 
-#### March to Scurry (2015)
+#### 'March to Scurry' (2015)
 
 <iframe src="https://player.vimeo.com/video/339451361" width="740" height="416" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 <p><a href="https://vimeo.com/339451361">MDDN 241: Project 2</a> from <a href="https://vimeo.com/user9860327">Thomas Roughton</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
 
 Our task for this project was to take a model someone else had made (in my case, an ant) and transform it into a different model; I chose a living computer mouse. I modelled everything apart from the ant in this scene and animated it all.
 
-#### Spring (2015)
+#### 'Spring' (2015)
 
 ![Spring Poster](/assets/portfolio/Spring.jpg)
 
