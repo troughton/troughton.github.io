@@ -6,7 +6,7 @@ permalink: /portfolio/
 
 ## Biography
 
-I'm Thomas Roughton, a programmer, dabbling designer, hobbyist musician, photographer, and musical theatre enthusiast. I'm based in Wellington, New Zealand, and you can hire me for game, graphics, or engine work. I can work on-site in Wellington or remotely, and can adapt to a wide range of development practices and tech stacks.
+I'm Thomas Roughton, a programmer, dabbling designer, hobbyist musician and photographer, and musical theatre enthusiast. I'm based in Wellington, New Zealand, and you can hire me for game, graphics, or engine work. I can work on-site in Wellington or remotely, and can adapt to a wide range of development practices and tech stacks.
 
 I specialise in computer graphics and real-time rendering, where I've contributed techniques such as [progressive least squares encoding](/rendering/irradiance-caching/spherical-gaussians/2018/09/21/spherical-gaussians). I have expert experience with the Metal rendering API, have experience with OpenGL, and have also written a Vulkan backend for [my render-graph based rendering framework](https://github.com/troughton/SwiftFrameGraph).
 
@@ -19,7 +19,9 @@ Over the course of my University studies, I've worked in conjunction with [Josep
 ## Qualifications
 
 - Master of Science in Computer Science (2019, pending acceptance): Interactive Generation of Path-Traced Lightmaps.
+- Victoria Masters by Thesis Scholarship (2018)
 - Bachelor of Science, majoring in Computer Science and minoring in Media Design (2016).
+- Victoria Vice Chancellor's Excellence Scholarship (2014)
 - NZQA Outstanding Scholarships in Calculus and Classics, and Scholarships in Physics, Chemistry, and Technology.
 
 ## Work Experience
