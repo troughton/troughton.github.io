@@ -81,6 +81,8 @@ The below image contains four synthetic objects. See if you can spot them!
  
 <p><img src="/assets/portfolio/OfficialBusinessProxyGeometry.jpg"></p>
 
+I modelled the standing desk, wooden desk, and red audio box in this image; all other objects are licensed  assets.
+
 </details><br>
 
 ### 'Illumination' (2016)
