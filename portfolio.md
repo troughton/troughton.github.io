@@ -77,11 +77,11 @@ The below image contains four synthetic objects. See if you can spot them!
 <br>
 <p>Source image:</p>
 
-<p><img src="/assets/portfolio/OfficialBusinessUnmodified.jpg"></p>
+<p><img src="{{ site.baseurl }}/assets/portfolio/OfficialBusinessUnmodified.jpg"></p>
 
 <p>Proxy Geometry:</p>
  
-<p><img src="/assets/portfolio/OfficialBusinessProxyGeometry.jpg"></p>
+<p><img src="{{ site.baseurl }}/assets/portfolio/OfficialBusinessProxyGeometry.jpg"></p>
 
 I modelled the standing desk, wooden desk, and red audio box in this image; all other objects are licensed  assets.
 
