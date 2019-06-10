@@ -10,7 +10,7 @@ I'm Thomas Roughton, a programmer, dabbling designer, hobbyist musician and phot
 
 I specialise in computer graphics and real-time rendering, where I've contributed techniques such as [progressive least squares encoding](/rendering/irradiance-caching/spherical-gaussians/2018/09/21/spherical-gaussians). I have expert experience with the Metal rendering API, have experience with OpenGL, and have also written a Vulkan backend for [my render-graph based rendering framework](https://github.com/troughton/SwiftFrameGraph).
 
-I am highly motivated, have high standards, and learn quickly. I'm constantly exploring possibilities, finding ways that things could be done better, and acting upon them. I strongly value the end user experience in my work, whether that be a consumer, artist, or API user, and am excited by what more by what technology enables people to do than by the technology itself.
+I am highly motivated, have high standards, and learn quickly. I'm constantly exploring possibilities, finding ways that things could be done better, and acting upon them. I strongly value the end user experience in my work, whether that be a consumer, artist, or API user, and am excited more by what technology enables people to do than by the technology itself.
 
 My background in programming began with writing iOS apps in Objective-C at the age of 13. Since 2015, I've been writing most of my code in the [Swift programming language](https://swift.org), and have contributed to the compiler in order to help port it to Windows. I also have experience in C, C++, Java, Javascript, C#, Swift, Python, MSL, HLSL, GLSL, and even a small amount of Prolog, Haskell and MIPS assembly. The promise of languages like Swift and Rust excites me, and I'm looking forward to seeing the industry move away from C and C++. 
 
@@ -18,9 +18,9 @@ Over the course of my University studies, I've worked in conjunction with [Josep
 
 ## Qualifications
 
-- Master of Science in Computer Science (2019, pending acceptance): Interactive Generation of Path-Traced Lightmaps.
+- Master of Science in Computer Science (Victoria University of Wellington, 2019, pending acceptance): Interactive Generation of Path-Traced Lightmaps.
 - Victoria Masters by Thesis Scholarship (2018)
-- Bachelor of Science, majoring in Computer Science and minoring in Media Design (A+ average) (2016).
+- Bachelor of Science, majoring in Computer Science and minoring in Media Design (A+ average) (Victoria University of Wellington, 2016).
 - Victoria Vice Chancellor's Excellence Scholarship (2014)
 - NZQA Outstanding Scholarships in Calculus and Classics, and Scholarships in Physics, Chemistry, and Technology.
 
