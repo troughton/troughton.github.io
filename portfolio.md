@@ -32,7 +32,7 @@ Over the course of my University studies, I've worked in conjunction with [Josep
 
 - Full-time summer work at [TouchTech](https://touchtechlabs.com/) (January – February 2015) as an iOS engineer. I extended the iPad version and led development on the iPhone version of the [UBank app](https://itunes.apple.com/us/app/ubank-mobile-banking/id1313119623), and was brought on to the [Ngā Tapuwae Gallipoli app](https://itunes.apple.com/us/app/ngā-tapuwae-western-front/id1039180827) to address bugs and UI issues. Despite my short time in this role, I quickly became considered an expert in the team and was referred and solved many difficult problems that the team had been struggling with.
 
-- Sole developer of [CubeTimer](https://www.speedsolving.com/threads/cubetimer-for-ios-2-0.39187/) (2011 – 2012), an iOS speedcubing application. This started as a hobby when some friends wanted to time how quickly they could solve Rubik's cubes, but quickly expanded into a fully-featured application.
+- Sole developer of [CubeTimer](https://www.speedsolving.com/threads/cubetimer-for-ios-2-0.39187/) (2011 – 2012), an iOS speedcubing application. This started as a hobby when some friends wanted to time how quickly they could solve Rubik's cubes but quickly expanded into a fully-featured application.
 
 I also contribute to the open-source [Swift programming language](https://github.com/apple/swift) and actively develop my own graphics framework called [SwiftFrameGraph](https://github.com/troughton/SwiftFrameGraph). You can find some of my code [on GitHub](https://github.com/troughton/), in varying states of production-readyness.
 
