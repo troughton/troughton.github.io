@@ -18,7 +18,7 @@ Over the course of my University studies, I've worked in conjunction with [Josep
 
 ## Qualifications
 
-- Master of Science in Computer Science (Victoria University of Wellington, 2019, pending publication): Interactive Generation of Path-Traced Lightmaps.
+- Master of Science in Computer Graphics with Distinction (Victoria University of Wellington, 2019, pending publication): Interactive Generation of Path-Traced Lightmaps.
 - Victoria Masters by Thesis Scholarship (2018)
 - Bachelor of Science, majoring in Computer Science and minoring in Media Design (A+ average) (Victoria University of Wellington, 2016).
 - Victoria Vice Chancellor's Excellence Scholarship (2014)
