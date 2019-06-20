@@ -103,8 +103,8 @@ All of the projects below were done within the span of fourteen weeks as part of
 ![Waterfall Swoop](/assets/portfolio/WaterfallSwoop.jpg)
 
 Waterfall Swoop was the first project in a modelling and animation course. I modelled the hawk, used Maya particles to generate a waterfall, and then animated the scene to achieve the motion blur in the final render.
-
-![Waterfall Swoop Hawk Model](/assets/portfolio/WaterfallSwoopModel.png)
+<!-- 
+![Waterfall Swoop Hawk Model](/assets/portfolio/WaterfallSwoopModel.png) -->
 
 #### 'March to Scurry' (2015)
 

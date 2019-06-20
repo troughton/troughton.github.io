@@ -22,6 +22,8 @@ url: "https://torust.me" # the base hostname & protocol for your site, e.g. http
 twitter_username: _torust
 github_username:  troughton
 
+permalink: /:year/:month/:day/:title:output_ext
+
 # Build settings
 markdown: kramdown
 theme: minima

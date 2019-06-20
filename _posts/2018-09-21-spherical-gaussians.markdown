@@ -3,6 +3,7 @@ layout: post
 title:  "Spherical Gaussian Encoding"
 date:   2018-09-21 15:37:26 +1200
 categories: rendering irradiance-caching spherical-gaussians
+permalink: rendering/irradiance-caching/spherical-gaussians/2018/09/21/spherical-gaussians
 ---
 
 Spherical Gaussians are a useful tool for encoding precomputed radiance within a scene. Matt Pettineo has [an excellent series](https://mynameismjp.wordpress.com/2016/10/09/sg-series-part-1-a-brief-and-incomplete-history-of-baked-lighting-representations/) describing the technical details and history behind them which I'd suggest reading before the rest of this post.
