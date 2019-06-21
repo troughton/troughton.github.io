@@ -5,7 +5,7 @@ date:   2018-10-02 11:51:00 +1300
 categories: rendering irradiance-caching spherical-gaussians
 ---
 
-In the [previous post](/rendering/irradiance-caching/spherical-gaussians/2018/09/21/spherical-gaussians.html) I introduced an as-far-as-I-know novel method for performing progressive least squares optimisation with spherical basis functions. Here, I'll go into more detail about how it works, and also derive my [original, approximate method](/rendering/irradiance-caching/spherical-gaussians/2018/09/21/spherical-gaussians-old.html) from the corrected version.
+In the [previous post](/rendering/irradiance-caching/spherical-gaussians/2018/09/21/spherical-gaussians) I introduced an as-far-as-I-know novel method for performing progressive least squares optimisation with spherical basis functions. Here, I'll go into more detail about how it works, and also derive my [original, approximate method](/2018/09/21/spherical-gaussians-old) from the corrected version.
 
 Many thanks to Peter-Pike Sloan for [providing the first part](https://twitter.com/PeterPikeSloan/status/1044482721223856128) of this derivation.
 
