@@ -12,7 +12,7 @@ categories: rendering srfbs thesis
 | ![Path-traced reference](/assets/thesis/MetallicSponza/Sponza-Metals-Metallic-PT-Crop.jpg) |
 | Path-traced reference |
 | ![Path-traced reference](/assets/thesis/MetallicSponza/Sponza-Metals-Metallic-SG12NN-Crop.jpg) |
-| Non-negative spherical Gaussian lobes (twelve lobes, $$ \lambda = 8 $$) (2.5ms per frame) |
+| Non-negative spherical Gaussians (twelve lobes, $$ \lambda = 8 $$) (2.5ms per frame) |
 
 With [my thesis now published](/thesis/), I wanted to break down one of its key contributions: namely, the extension of Iwanicki and Sloan's [Ambient Dice](http://miciwan.com/EGSR2017/AmbientDice.pdf) basis function to store and evaluate both diffuse and specular irradiance. This content mainly comes from Chapters 7 & 8 of the thesis.
 
