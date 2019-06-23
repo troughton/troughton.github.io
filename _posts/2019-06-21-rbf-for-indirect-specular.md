@@ -14,7 +14,7 @@ categories: rendering srfbs thesis
 | ![Path-traced reference](/assets/thesis/MetallicSponza/Sponza-Metals-Metallic-SG12NN-Crop.jpg) |
 | Non-negative spherical Gaussians (twelve lobes, $$ \lambda = 8 $$) (2.5ms per frame) |
 
-With [my thesis now published](/thesis/), I wanted to break down one of its key contributions: namely, the extension of Iwanicki and Sloan's [Ambient Dice](http://miciwan.com/EGSR2017/AmbientDice.pdf) basis function to store and evaluate both diffuse and specular irradiance. This content mainly comes from Chapters 7 & 8 of the thesis.
+With [my thesis now published](/thesis), I wanted to break down one of its key contributions: namely, the extension of Iwanicki and Sloan's [Ambient Dice](http://miciwan.com/EGSR2017/AmbientDice.pdf) basis function to store and evaluate both diffuse and specular irradiance. This content mainly comes from Chapters 7 & 8 of the thesis.
 
 Firstly, it's worth quickly covering what linear bases are. When we add multiple functions $$ B_i(s) $$ together and multiply by *basis coefficients* $$ b_i $$, we get a *linear basis*, where $$ B_i(s) $$ is the $$ i^{th} $$ basis function of the linear basis:
 
