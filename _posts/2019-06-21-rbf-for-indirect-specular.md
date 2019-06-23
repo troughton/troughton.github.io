@@ -64,7 +64,7 @@ In the [Ambient Dice](http://miciwan.com/EGSR2017/AmbientDice.pdf) paper, Iwanic
 
 $$ B_i(s) = 0.35 \max((s \cdot v_i), 0)^2 + 0.25 \max((s \cdot v_i), 0)^4 $$
 
-In their paper, Sloan and Iwanicki directly stored diffuse irradiance into the linear basis. For my use-case, I wanted to reconstruct both diffuse *and* specular irradiance; therefore, I stored radiance into the basis.[^2]
+In their paper, Iwanicki and Sloan directly stored diffuse irradiance into the linear basis. For my use-case, I wanted to reconstruct both diffuse *and* specular irradiance; therefore, I stored radiance into the basis.[^2]
 
 [^2]: Storing radiance rather than irradiance means more coefficients are required for runtime reconstruction; rather than only retrieving the coefficients for the non-zero basis functions in the sample direction, we need to retrieve coefficients for any lobe which may have influence over the hemisphere around the sample direction (which, in practice, usually means we need to use all of the lobes).
 
