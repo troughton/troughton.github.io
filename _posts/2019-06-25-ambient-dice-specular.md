@@ -28,7 +28,7 @@ $$
 	C_j(\omega_o ) = \int_\Omega B_i(\omega_i ) f_{br}(\alpha, \omega_i, \omega_o, n, f_0, f_{90}) d\omega_i
 $$
 
-As far as I'm aware, there's no closed-form solution to this integral for the GGX BRDF[^1] that I use for specular. Instead, we can either use Monte-Carlo integration to evaluate it, or we can use a fitted approximation or lookup table. Unfortunately, using Monte Carlo integration for this is overly expensive for real-time applications; visual artefacts are still readily apparent with as many as 32 samples when estimating $$ C_j(\omega_o ) $$ – try setting `sampleCount` to `32` in `groundTruth` in the ShaderToy to see this in effect.
+As far as I'm aware, there's no closed-form solution to this integral for the GGX BRDF that I use for specular[^1]. Instead, we can either use Monte-Carlo integration to evaluate it, or we can use a fitted approximation or lookup table. Unfortunately, using Monte Carlo integration for this is overly expensive for real-time applications; visual artefacts are still readily apparent with as many as 32 samples when estimating $$ C_j(\omega_o ) $$ – try setting `sampleCount` to `32` in `groundTruth` in the ShaderToy to see this in effect.
 
 [^1]: More precisely, this fit is for the single-scattering GGX specular model using the Smith height-correlated masking-shadowing function; Heitz provides details in [Understanding the Masking-Shadowing Function in Microfacet-Based BRDFs](http://jcgt.org/published/0003/02/03/paper.pdf).
 
