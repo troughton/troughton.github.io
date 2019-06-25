@@ -72,7 +72,7 @@ Given an SRBF basis storing radiance, the next step is to find fits that allow u
 
 $$ 
 \theta_{i}(s) = \cos^{-1}(s \cdot v_{i}) \\
-I_{i\text{ approx}}(\theta_{i}) = 0.06 + 0.129 \cos(\theta_{i}) + 0.0697 \cos^2(\theta_{i})
+I_{i\text{ approx}}(\theta_{i}) = 0.05981 + 0.12918 \cos(\theta_{i}) + 0.07056 \cos^2(\theta_{i})
 $$
 
 | ![Cosine Lobe fit for Ambient Dice](/assets/thesis/CosineLobeFitADSRBF.png) |
@@ -86,11 +86,11 @@ Firstly, note that evaluating specular for a mirror-like surface is the same as 
 
 Let’s say we want to use the basis to evaluate specular for a range of roughness values. Well, it turns out that rough specular is fairly accurately approximated by multiplying the diffuse lighting by the specular BRDF response (which should be 1 if it’s energy conservative). For values in the middle of the roughness range, I found that blending between the two extremes – mirror reflectance and BRDF-multiplied diffuse – with the help of a 2D lookup table (roughness vs. viewing angle) actually works fairly well. 
 
-I won't go into the details of my specular fit here – that will come in a future post, or you can look at Chapter 8 of [my thesis](/thesis) (page 124). The part I want to emphasise is that, since all the RBF lobes share the same basis function, we only need one lookup table! We couldn’t do this for e.g. spherical harmonics since each SH band is evaluated differently – this is in fact a problem Chen and Liu ran into when using spherical harmonics for specular in the [Lighting and Material of Halo 3](https://developer.amd.com/wordpress/media/2012/10/S2008-Chen-Lighting_and_Material_of_Halo3.pdf).
+I won't go into the details of my specular fit here – that will come in [a future post]({% post_url 2019-06-25-ambient-dice-specular %}), or you can look at Chapter 8 of [my thesis](/thesis) (page 124). The part I want to emphasise is that, since all the RBF lobes share the same basis function, we only need one lookup table! We couldn’t do this for e.g. spherical harmonics since each SH band is evaluated differently – this is in fact a problem Chen and Liu ran into when using spherical harmonics for specular in the [Lighting and Material of Halo 3](https://developer.amd.com/wordpress/media/2012/10/S2008-Chen-Lighting_and_Material_of_Halo3.pdf).
 
 The diffuse and specular fits in combination make a good-quality, efficiently-reconstructed method of storing low-frequency indirect diffuse and specular lighting. Although I haven’t tried, I’m sure you could get even better results with a 3D lookup table or different radial basis functions – for example, $$ (s \cdot v_i)^6 $$ or higher powers of cosine are an obvious choice to preserve higher-frequency information.
 
-In a future post, I'll go into more detail about my fit for Ambient Dice specular, along with some ideas for ways that fit could be improved.
+[In the next post]({% post_url 2019-06-25-ambient-dice-specular %}), I go into more detail about my fit for Ambient Dice specular.
 
 <script type="text/javascript" async
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=default.js">
