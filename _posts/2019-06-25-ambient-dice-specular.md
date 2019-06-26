@@ -228,7 +228,7 @@ B_i(s) = \max(\cos(\theta), 0)^8 $$ might be a good fit; note, however, that thi
 <a name="ResultImages"></a>
 # Results
 
-The table below compares spherical Gaussians ($$ \lambda = 6 $$) with 9 or 12 lobes against Ambient Dice with 9 or 12 lobes (where the nine-lobe variant contains only the lobes oriented towards the upper hemisphere) on the [Ennis environment map](http://gl.ict.usc.edu/Data/HighResProbes).
+The table below compares spherical Gaussians ($$ \lambda = 6 $$) with 9 or 12 lobes against Ambient Dice with 9 or 12 lobes (where the nine-lobe variant contains only the lobes oriented towards the upper hemisphere) on the [Ennis environment map](http://gl.ict.usc.edu/Data/HighResProbes). The spherical Gaussians use an [anisotropic spherical Gaussian fit](https://cg.cs.tsinghua.edu.cn/people/~kun/asg/) for specular as [detailed by MJP](https://mynameismjp.wordpress.com/2016/10/09/sg-series-part-4-specular-lighting-from-an-sg-light-source/).
 
 | | Reference | AD9 | AD12 | SG9 | SG12 |
 | -- | :--: | :-: | :--: | :-: | :--: |
