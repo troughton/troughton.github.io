@@ -20,7 +20,7 @@ The ShaderToy below shows my fit against the reference (note: I've tested this t
 <iframe width="800" height="450" frameborder="0" src="https://www.shadertoy.com/embed/3d23Wz?gui=true&t=10&paused=true&muted=false"></iframe>
 [ShaderToy link with source code](https://www.shadertoy.com/view/3d23Wz)
 
-_The left half of the sphere is the approximation, and the right half is the ground truth. The sphere is parameterised by viewing direction; the edges of the sphere are at grazing angles, while the centre is viewing along the normal. The red dot is the lobe direction; you can move it around the sphere by dragging up and down with the mouse. Dragging left to right will change the surface roughness._
+_The left half of the sphere is the approximation, and the right half is the ground truth, where green is the f0 and blue is the f90 material scale factor. The sphere is parameterised by viewing direction; the edges of the sphere are at grazing angles, while the centre is viewing along the normal. The red dot is the lobe direction; you can move it around the sphere by dragging up and down with the mouse. Dragging left to right will change the surface roughness._
 
 In general, finding the integral of a specular BRDF with illumination from an arbitrary basis function is a difficult problem due to the large number of free parameters. For a general specular model parameterised by some isotropic roughness $$ \alpha $$, normal direction $$ n $$, and reflectance at normal and grazing angles $$ f_0 $$ and $$ f_{90} $$, the illumination from a light source in some linear basis is given by:
 
