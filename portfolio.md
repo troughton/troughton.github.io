@@ -12,9 +12,9 @@ I specialise in computer graphics and real-time rendering, where I've contribute
 
 I am highly motivated, have high standards, and learn quickly. I'm constantly exploring possibilities, finding ways that things could be done better, and acting upon them. I strongly value the end user experience in my work, whether that be a consumer, artist, or API user, and am excited more by what technology enables people to do than by the technology itself.
 
-My background in programming began with writing iOS apps in Objective-C at the age of 13. Since 2015, I've been writing most of my code in the [Swift programming language](https://swift.org), and have contributed to the compiler in order to help port it to Windows. I also have significant experience with C, C++, Java, C#, and Python. The promise of languages like Swift and Rust excites me, and I'm looking forward to seeing the industry move away from C and C++. 
+My background in programming began with writing iOS apps in Objective-C at the age of 13. Since 2015, I've been writing most of my code in the [Swift programming language](https://swift.org), and have contributed to the compiler. I also have significant experience with C, C++, Java, C#, and Python. The promise of languages like Swift and Rust excites me, and I'm looking forward to seeing the industry move away from C and C++. 
 
-Over the course of my University studies, I've worked in conjunction with [Joseph Bennett](http://josephbennett.me) to develop a cross-platform game engine in Swift. This has been a great opportunity to learn about a wide range of topics, including engine architecture, data-oriented design, different graphics APIs, various rendering techniques, allocator management, SIMD programming, and more. We hope to use this engine to release a game in the near future.
+For the past few years, I've worked in conjunction with [Joseph Bennett](http://josephbennett.me) to develop a cross-platform game engine in Swift (components of which can be found [on my GitHub](https://github.com/troughton/SwiftFrameGraph)). This has been a great opportunity to learn about a wide range of topics, including engine architecture, data-oriented design, different graphics APIs, various rendering techniques, allocator management, SIMD programming, and more.
 
 ## Qualifications
 
