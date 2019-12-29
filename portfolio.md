@@ -19,14 +19,15 @@ For the past few years, I've worked in conjunction with [Joseph Bennett](http://
 ## Qualifications
 
 - Master of Science in Computer Graphics with Distinction (Victoria University of Wellington, 2019): [Interactive Generation of Path-Traced Lightmaps](/thesis)
-- Victoria Masters by Thesis Scholarship (2018)
 - Bachelor of Science, majoring in Computer Science and minoring in Media Design (A+ average) (Victoria University of Wellington, 2016).
-- Victoria Vice Chancellor's Excellence Scholarship (2014)
 - NZQA Outstanding Scholarships in Calculus and Classics, and Scholarships in Physics, Chemistry, and Technology.
+- NCEA Level 3 with Excellence.
 
 ## Work Experience
 
 ### Software Development
+
+- Graphics/Engine Development Contractor for [Confetti FX](http://www.confettispecialfx.com) (September 2019 – Present), working primarily on [The Forge](https://github.com/ConfettiFX/The-Forge). I implemented the new [file system APIs](https://github.com/ConfettiFX/The-Forge/blob/master/Common_3/OS/Interfaces/IFileSystem.h) and implemented a DXR-like path tracing backend for Metal.
 
 - Internship at [Weta Digital](https://www.wetafx.co.nz) (November 2017 – February 2018), working on skin rendering. I researched and implemented a novel solution for thick- and thin-surface subsurface scattering within their in-house OpenGL preview renderer Gazebo, meeting the constraints of their production pipeline.
 
