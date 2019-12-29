@@ -27,7 +27,7 @@ For the past few years, I've worked in conjunction with [Joseph Bennett](http://
 
 ### Software Development
 
-- Graphics/Engine Development Contractor for [Confetti FX](http://www.confettispecialfx.com) (September 2019 – Present), working primarily on [The Forge](https://github.com/ConfettiFX/The-Forge). I implemented the new [file system APIs](https://github.com/ConfettiFX/The-Forge/blob/master/Common_3/OS/Interfaces/IFileSystem.h) and implemented a DXR-like path tracing backend for Metal.
+- Graphics/Engine Development Contractor for [Confetti FX](http://www.confettispecialfx.com) (September 2019 – Present), working primarily on [The Forge](https://github.com/ConfettiFX/The-Forge). My contributions include developing the new [file system APIs](https://github.com/ConfettiFX/The-Forge/blob/master/Common_3/OS/Interfaces/IFileSystem.h) and implementing a DXR-like path tracing backend for Metal.
 
 - Internship at [Weta Digital](https://www.wetafx.co.nz) (November 2017 – February 2018), working on skin rendering. I researched and implemented a novel solution for thick- and thin-surface subsurface scattering within their in-house OpenGL preview renderer Gazebo, meeting the constraints of their production pipeline.
 
