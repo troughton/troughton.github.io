@@ -16,6 +16,11 @@ My background in programming began with writing iOS apps in Objective-C at the a
 
 For the past few years, I've worked in conjunction with [Joseph Bennett](http://josephbennett.me) to develop a cross-platform game engine in Swift (components of which can be found [on my GitHub](https://github.com/troughton/SwiftFrameGraph)). This has been a great opportunity to learn about a wide range of topics, including engine architecture, data-oriented design, different graphics APIs, various rendering techniques, allocator management, SIMD programming, and more.
 
+## Published Works
+
+- [Progressive Least-Squares Encoding for Linear Bases](http://jcgt.org/published/0009/01/02/) (2019).
+- [Interactive Generation of Path-Traced Lightmaps](/thesis) (Master's Thesis, 2019).
+
 ## Qualifications
 
 - Master of Science in Computer Graphics with Distinction (Victoria University of Wellington, 2019): [Interactive Generation of Path-Traced Lightmaps](/thesis)
