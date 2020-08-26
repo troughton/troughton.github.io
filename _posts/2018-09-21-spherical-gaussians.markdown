@@ -6,6 +6,8 @@ categories: rendering irradiance-caching spherical-gaussians
 permalink: rendering/irradiance-caching/spherical-gaussians/2018/09/21/spherical-gaussians
 ---
 
+> Update: This post has now been published in paper form as ["Progressive Least-Squares Encoding for Linear Bases"](http://jcgt.org/published/0009/01/02/) in the open-access journal JCGT. Take a look there for a more formalised derivation and more details.
+
 Spherical Gaussians are a useful tool for encoding precomputed radiance within a scene. Matt Pettineo has [an excellent series](https://mynameismjp.wordpress.com/2016/10/09/sg-series-part-1-a-brief-and-incomplete-history-of-baked-lighting-representations/) describing the technical details and history behind them which I'd suggest reading before the rest of this post.
 
 Recently, I've had need to build spherical Gaussian representations of a scene on the fly in the GPU path tracer I'm building for my Master's project. Unlike, say, spherical harmonics, spherical Gaussian lobes don't form a set of orthonormal bases; they need to be computed with a least-squares solve, which is generally[^1] done with access to all radiance samples at once. On the GPU, in a memory-constrained environment, this is highly impractical. 
