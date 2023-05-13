@@ -32,9 +32,11 @@ For the past few years, I've worked in conjunction with [Joseph Bennett](http://
 
 ### Software Development
 
-- Lead Graphics Engineer (on contract) for [LiveSurface](https://www.livesurface.com) (March 2020 – Present), working on new graphics techniques and methods for LiveSurface's upcoming products.
+- Senior Research Engineer (on contract) at [Activision's Central Technology Group](https://research.activision.com) (May 2023 – Present), working on the lighting pipeline for the Call of Duty series of games.
 
-- Graphics/Engine Development Contractor for [Confetti FX](http://www.confettispecialfx.com) (September 2019 – Present), working primarily on [The Forge](https://github.com/ConfettiFX/The-Forge). My contributions include developing the new [file system APIs](https://github.com/ConfettiFX/The-Forge/blob/master/Common_3/OS/Interfaces/IFileSystem.h) and implementing a DXR-like path tracing backend for Metal.
+- Lead Graphics Engineer (on contract) for [LiveSurface](https://www.livesurface.com) (March 2020 – Present), building the renderer and content workflows for their new Mac application.
+
+- Graphics/Engine Development for [Confetti FX](http://www.confettispecialfx.com) (September 2019 – March 2020), working primarily on [The Forge](https://github.com/ConfettiFX/The-Forge). My contributions included developing the new [file system APIs](https://github.com/ConfettiFX/The-Forge/blob/master/Common_3/OS/Interfaces/IFileSystem.h), implementing a DXR-like path tracing backend for Metal, and implementing demos for VR interaction and rendering techniques.
 
 - Internship at [Weta Digital](https://www.wetafx.co.nz) (November 2017 – February 2018), working on skin rendering. I researched and implemented a novel solution for thick- and thin-surface subsurface scattering within their in-house OpenGL preview renderer Gazebo, meeting the constraints of their production pipeline.
 
@@ -48,7 +50,7 @@ I also contribute to the open-source [Swift programming language](https://github
 
 - [Orb Solutions](https://orbsolutions.co.nz) (2018), adapting an external designer's concepts into a Squarespace template.
 
-- [Dragonfly Hair Design](http://www.dragonflyhairdesign.co.nz) (2012), designing and building a clean HTML + CSS website to match their brand.
+- [Dragonfly Hair Design](https://web.archive.org/web/20191128071749/http://www.dragonflyhairdesign.co.nz/) (2012), designing and building a clean HTML + CSS website to match their brand.
 
 ## Portfolio
 
