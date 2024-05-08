@@ -18,6 +18,9 @@ For the past few years, I've worked in conjunction with [Joseph Bennett](http://
 
 ## Published Works
 
+*Also available in more detail [here](/publications).*
+
+- [ZH3: Quadratic Zonal Harmonics](/ZH3.pdf) (2024).
 - [Progressive Least-Squares Encoding for Linear Bases](http://jcgt.org/published/0009/01/02/) (2019).
 - [Interactive Generation of Path-Traced Lightmaps](/thesis) (Master's Thesis, 2019).
 
